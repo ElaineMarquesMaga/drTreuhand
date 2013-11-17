@@ -1,0 +1,127 @@
+﻿@{
+    ViewBag.Title = "Kontakt";
+    Layout = "~/Views/shared/_DrTreuhandLayout.basic.cshtml";
+}
+
+
+
+<div class="row-fluid">
+    <div class="span10">
+        <h2>Kontakt</h2>
+
+    </div> 
+</div>
+<div class="span3">
+    <div class="row-fluid box-gray">
+        <div class="3" >          
+            
+            <p>Geschäftszeiten:</p>
+            <p>Mo - Fr     8:30 bis 11:30 und 14:00 bis 16:30 Uhr</p>
+            <hr />
+            <div >
+            <p>Adressen:</p>
+            <p>Rheinparkstrasse 23, 4127 Birsfelden </p>
+            <p>Tel:33333333 </p>
+             </div>
+            <br />
+            <div >
+            <p> Wegastrasse 2,  4127 Allschwil </p>
+             <p>Tel:33333333 </p>
+        </div>
+        </div>
+       
+      
+    </div>
+   
+    
+</div> 
+
+<div class="span7">
+   <div  id="map-canvas" class="hero-unit maps"> <h2>maps hier</h2></div> 
+
+</div> 
+
+  
+
+          <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCzIkTrWXpfKJP2jqrSUEgrUgfD8FE8i0Q&sensor=false&callback=initialize"; type="text/javascript"> </script>
+     
+
+    <script>
+var geocoder;
+var map;
+function initialize() {
+  geocoder = new google.maps.Geocoder();
+  var latlng = new google.maps.LatLng(47.553, 7.627);
+  var mapOptions = {
+      zoom: 12,
+      center: new google.maps.LatLng(0, 0),
+      mapTypeControl: true,
+      mapTypeControlOptions: {
+          style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
+      },
+      zoomControl: true,
+      zoomControlOptions: {
+          style: google.maps.ZoomControlStyle.SMALL
+      },
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+  }
+
+  map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+  
+
+  codeAddress( "Rheinparkstrasse 23, 4127 Birsfelden,schweiz");
+  codeAddress("Wegastrasse 2  4127 Allschwil,schweiz");
+
+
+}
+        //http://stackoverflow.com/questions/11467070/how-to-set-a-popup-on-markers-with-google-maps-api
+function codeAddress(address) {
+     //document.getElementById('address').value;
+  geocoder.geocode( { 'address': address}, function(results, status) {
+    if (status == google.maps.GeocoderStatus.OK) {
+      map.setCenter(results[0].geometry.location);
+
+      var marker = new google.maps.Marker({
+          map: map,
+          position: results[0].geometry.location,
+          title: 'rrn-Consulting Dr. Treuhand',
+          url:'maps.google.ch'
+      });
+    } else {
+      alert('Geocode was not successful for the following reason: ' + status);
+    }
+
+    var contentString = '<div >' +
+          '<h3>rrn-Consulting Dr. Treuhand </h3>' +
+          '<div >' +
+          '<p><b>Geschaftszeiten:</b>sdfasdfd</b>,  ' +
+          'sdfasdf asdfasdasdf asdfa ' +
+           '<dasdfasdfasdfasdf. </p>' +
+           '<a href="http://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194"> sdfsdf</a>' +
+          '</div>' +
+          '</div>';
+
+    var infowindow = new google.maps.InfoWindow({
+        content: contentString
+    });
+
+    google.maps.event.addListener(marker, 'click', function () {
+        //infowindow.open(map, marker);
+
+    });
+
+
+  });
+
+ 
+
+}
+
+google.maps.event.addDomListener(window, 'load', initialize);
+
+    </script>
+
+
+       @* window.onload = loadScript;
+    </script>*@
