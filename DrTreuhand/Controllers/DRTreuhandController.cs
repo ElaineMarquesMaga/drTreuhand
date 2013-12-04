@@ -39,8 +39,9 @@ namespace DrTreuhand.Controllers
 
         }
          public ActionResult Kontakt()
-        {
-            ViewBag.Title = "Kontakt";
+        { 
+
+            ViewBag.Title = "Kontakt" ;
              return View();
 
         }
